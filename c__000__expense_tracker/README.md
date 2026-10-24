@@ -1,17 +1,17 @@
 
-# C-000 — Expense Tracker
+# C-000 — Unit Converter
 
 **Language:** C  
 **Level:** Beginner  
-**Repository:** `c-000-expense-tracker`
+**Repository:** `c-000-unit-converter`
 
 ## Project Overview
 
-Build a command-line Expense Tracker in C.
+Build a command-line Unit Converter in C.
 
-The application allows users to create expenses, calculate costs, validate amounts, store multiple expenses, and calculate spending statistics.
+The application allows users to convert values between different units of measurement, including length, mass, and temperature.
 
-Each task introduces one programming chapter and extends the existing application.
+Each task introduces one programming chapter and incrementally extends the same application.
 
 ## Chapters
 
@@ -20,11 +20,11 @@ Each task introduces one programming chapter and extends the existing applicatio
 | 1 | Variables & Data Types | `int`, `double`, `char`, declaration, initialization |
 | 2 | Constants | `const`, `#define` |
 | 3 | Operators | `=`, `+`, `-`, `*`, `/`, `%`, `+=`, `-=`, `*=`, `/=` |
-| 4 | Input & Output | `printf`, `scanf`, format specifiers |
-| 5 | Conditional Statements | `if`, `else`, `switch`, `case`, `default` |
-| 6 | Loops | `for`, `while`, `do`, `break`, `continue` |
+| 4 | Input & Output | `printf`, `scanf`, format specifiers, escape sequences |
+| 5 | Conditional Statements | `if`, `else if`, `else`, `switch`, `case`, `default`, comparison and logical operators |
+| 6 | Loops | `for`, `while`, `do...while`, `break`, `continue` |
 | 7 | Arrays & Strings | `[]`, `char[]`, `strlen`, `strcmp`, `strcpy` |
-| 8 | Functions | `void`, `return`, parameters, function calls |
+| 8 | Functions | `void`, `return`, parameters, function calls, scope |
 
 ---
 
@@ -32,14 +32,19 @@ Each task introduces one programming chapter and extends the existing applicatio
 
 **Chapter:** Variables & Data Types — `int`, `double`, `char`, declaration, initialization
 
+### Feature / Mission
+
+Create the initial unit conversion record containing a measurement name, source value, target value, and unit symbols.
+
 ### Assignments
 
-- [ ] Declare a character array to store an expense name.
-- [ ] Declare a `double` variable to store the unit price.
-- [ ] Declare an `int` variable to store the quantity purchased.
+- [ ] Declare a `double` variable to store a measurement value.
+- [ ] Declare another `double` variable to store the converted value.
+- [ ] Declare an `int` variable to store a conversion identifier.
+- [ ] Declare a `char` variable to store a single-character unit symbol.
+- [ ] Declare a character array to store the measurement name.
 - [ ] Initialize all variables with example values.
-- [ ] Declare another `double` variable to store the expense amount.
-- [ ] Display the expense information.
+- [ ] Display the measurement information.
 
 ### Code
 
@@ -47,15 +52,18 @@ Each task introduces one programming chapter and extends the existing applicatio
 #include <stdio.h>
 
 int main(void) {
-    char name[] = "Coffee";
-    double price = 3.50;
-    int quantity = 2;
-    double amount = 7.00;
+    char measurement[] = "Length";
+    char unit = 'm';
 
-    printf("Expense: %s\n", name);
-    printf("Price: %.2f EUR\n", price);
-    printf("Quantity: %d\n", quantity);
-    printf("Amount: %.2f EUR\n", amount);
+    int conversionId = 1;
+
+    double value = 5.0;
+    double convertedValue = 500.0;
+
+    printf("Measurement: %s\n", measurement);
+    printf("Conversion ID: %d\n", conversionId);
+    printf("Original: %.2f %c\n", value, unit);
+    printf("Converted: %.2f cm\n", convertedValue);
 
     return 0;
 }
@@ -63,12 +71,13 @@ int main(void) {
 
 ### Explanation
 
-- `char` represents a character; `char[]` stores a sequence of characters.
 - `int` stores integer values.
 - `double` stores floating-point values.
-- A variable declaration specifies its name and type.
-- Initialization assigns a starting value when a variable is declared.
-- `printf()` displays information. Its formatting features are explored in Task 4.
+- `char` stores a single character.
+- `char[]` stores a sequence of characters.
+- Declaration creates a named variable with a specific type.
+- Initialization assigns an initial value.
+- `printf()` displays the values. Formatted input and output are covered in Task 4.
 
 ---
 
@@ -76,37 +85,43 @@ int main(void) {
 
 **Chapter:** Constants — `const`, `#define`
 
+### Feature / Mission
+
+Introduce fixed conversion factors and configuration values so the application can use standardized measurement relationships.
+
 ### Assignments
 
-- [ ] Declare a constant named `VAT_RATE` using `const`.
-- [ ] Initialize `VAT_RATE` with `0.19`.
-- [ ] Define a constant named `CURRENCY` using `#define`.
-- [ ] Define a constant named `MAX_EXPENSES` with the value `100`.
-- [ ] Replace hardcoded currency text with `CURRENCY`.
-- [ ] Use `MAX_EXPENSES` to display the application's expense limit.
-- [ ] Display the configured VAT rate.
-- [ ] Verify that attempting to reassign `VAT_RATE` produces a compilation error, then remove the invalid assignment.
+- [ ] Declare a constant named `METERS_TO_CM` using `const`.
+- [ ] Initialize `METERS_TO_CM` with `100.0`.
+- [ ] Declare a constant named `KG_TO_GRAMS` with the value `1000.0`.
+- [ ] Define `APP_NAME` using `#define`.
+- [ ] Define `MAX_CONVERSIONS` with the value `100`.
+- [ ] Display the configured conversion factors.
+- [ ] Display the application name and conversion limit.
+- [ ] Experiment with modifying a `const` variable and observe the compilation error, then remove the invalid statement.
 
 ### Code
 
 ```c
 #include <stdio.h>
 
-#define CURRENCY "EUR"
-#define MAX_EXPENSES 100
+#define APP_NAME "Unit Converter"
+#define MAX_CONVERSIONS 100
 
 int main(void) {
-    const double VAT_RATE = 0.19;
+    const double METERS_TO_CM = 100.0;
+    const double KG_TO_GRAMS = 1000.0;
 
-    char name[] = "Coffee";
-    double price = 3.50;
-    int quantity = 2;
-    double amount = 7.00;
+    double value = 5.0;
+    double convertedValue = 500.0;
 
-    printf("Expense: %s\n", name);
-    printf("Amount: %.2f %s\n", amount, CURRENCY);
-    printf("VAT Rate: %.0f%%\n", VAT_RATE * 100);
-    printf("Maximum Expenses: %d\n", MAX_EXPENSES);
+    printf("%s\n", APP_NAME);
+    printf("Original: %.2f meters\n", value);
+    printf("Converted: %.2f centimeters\n", convertedValue);
+
+    printf("Meters to centimeters factor: %.2f\n", METERS_TO_CM);
+    printf("Kilograms to grams factor: %.2f\n", KG_TO_GRAMS);
+    printf("Maximum conversions: %d\n", MAX_CONVERSIONS);
 
     return 0;
 }
@@ -114,12 +129,12 @@ int main(void) {
 
 ### Explanation
 
-- `const` makes a variable read-only after initialization.
+- `const` declares a read-only variable.
 - `#define` creates a preprocessor macro.
-- `VAT_RATE` is a typed constant.
-- `CURRENCY` is a string macro.
-- `MAX_EXPENSES` is a numeric macro used later for array capacity.
-- The preprocessor substitutes macros before compilation.
+- `METERS_TO_CM` and `KG_TO_GRAMS` are typed constants.
+- `APP_NAME` is a string macro.
+- `MAX_CONVERSIONS` defines the future history capacity.
+- Constants avoid scattering hardcoded configuration values throughout the application.
 
 ---
 
@@ -127,59 +142,71 @@ int main(void) {
 
 **Chapter:** Operators — `=`, `+`, `-`, `*`, `/`, `%`, `+=`, `-=`, `*=`, `/=`
 
+### Feature / Mission
+
+Implement actual unit conversion calculations for length, mass, and temperature using arithmetic operators.
+
 ### Assignments
 
-- [ ] Calculate the subtotal using multiplication.
-- [ ] Calculate VAT using the `VAT_RATE` constant.
-- [ ] Calculate the final total using addition.
-- [ ] Calculate the remaining budget using subtraction.
-- [ ] Calculate the percentage of the budget spent using division.
-- [ ] Calculate the remaining whole euros using the modulo operator.
-- [ ] Use `=` to assign the subtotal to a variable.
-- [ ] Use `+=` to add VAT to the total.
-- [ ] Use `-=` to subtract the total from the budget.
-- [ ] Use `*=` to double an example quantity.
-- [ ] Use `/=` to restore the original quantity.
+- [ ] Convert meters to centimeters using multiplication.
+- [ ] Convert centimeters to meters using division.
+- [ ] Convert kilograms to grams using multiplication.
+- [ ] Convert Celsius to Kelvin using addition.
+- [ ] Convert Kelvin to Celsius using subtraction.
+- [ ] Use `=` to assign conversion results.
+- [ ] Use `+=` to add an offset to a temperature value.
+- [ ] Use `-=` to remove the offset.
+- [ ] Use `*=` to convert meters to centimeters.
+- [ ] Use `/=` to convert centimeters back to meters.
+- [ ] Use `%` to calculate the remaining centimeters after extracting whole meters from an integer centimeter measurement.
+- [ ] Display all calculated results.
 
 ### Code
 
 ```c
 #include <stdio.h>
 
-#define CURRENCY "EUR"
-
 int main(void) {
-    const double VAT_RATE = 0.19;
+    const double METERS_TO_CM = 100.0;
+    const double KG_TO_GRAMS = 1000.0;
+    const double KELVIN_OFFSET = 273.15;
 
-    char name[] = "Coffee";
-    double price = 3.50;
-    int quantity = 2;
-    double budget = 100.00;
+    double meters = 5.0;
+    double centimeters = meters * METERS_TO_CM;
+    double metersAgain = centimeters / METERS_TO_CM;
 
-    double subtotal = price * quantity;
-    double vat = subtotal * VAT_RATE;
+    double kilograms = 2.5;
+    double grams = kilograms * KG_TO_GRAMS;
 
-    double total = subtotal;
-    total += vat;
+    double celsius = 25.0;
+    double kelvin = celsius + KELVIN_OFFSET;
+    double celsiusAgain = kelvin - KELVIN_OFFSET;
 
-    double remaining = budget - total;
-    double percentage = total / budget * 100;
+    double result = meters;
+    result *= METERS_TO_CM;
+    result /= METERS_TO_CM;
 
-    budget -= total;
+    double temperature = celsius;
+    temperature += KELVIN_OFFSET;
+    temperature -= KELVIN_OFFSET;
 
-    int wholeEuros = (int)budget;
-    int remainder = wholeEuros % 10;
+    int totalCentimeters = 257;
+    int wholeMeters = totalCentimeters / 100;
+    int remainingCentimeters = totalCentimeters % 100;
 
-    quantity *= 2;
-    quantity /= 2;
+    printf("Meters to cm: %.2f\n", centimeters);
+    printf("Cm to meters: %.2f\n", metersAgain);
+    printf("Kg to grams: %.2f\n", grams);
+    printf("Celsius to Kelvin: %.2f\n", kelvin);
+    printf("Kelvin to Celsius: %.2f\n", celsiusAgain);
 
-    printf("Expense: %s\n", name);
-    printf("Subtotal: %.2f %s\n", subtotal, CURRENCY);
-    printf("VAT: %.2f %s\n", vat, CURRENCY);
-    printf("Total: %.2f %s\n", total, CURRENCY);
-    printf("Remaining: %.2f %s\n", remaining, CURRENCY);
-    printf("Budget Used: %.2f%%\n", percentage);
-    printf("Whole Euro Remainder: %d\n", remainder);
+    printf("Restored length: %.2f\n", result);
+    printf("Restored temperature: %.2f\n", temperature);
+
+    printf("%d cm = %d m and %d cm\n",
+           totalCentimeters,
+           wholeMeters,
+           remainingCentimeters);
 
     return 0;
 }
@@ -187,79 +214,82 @@ int main(void) {
 
 ### Explanation
 
-- `=` assigns a value.
-- `+` adds values.
-- `-` subtracts values.
-- `*` multiplies values.
-- `/` divides values.
-- `%` calculates the integer remainder.
-- `+=` adds to an existing value.
-- `-=` subtracts from an existing value.
-- `*=` multiplies an existing value.
-- `/=` divides an existing value.
-- `(int)` converts a value to an integer, discarding its fractional part.
+- `=` assigns values.
+- `+` adds a temperature offset.
+- `-` removes a temperature offset.
+- `*` multiplies a measurement by a conversion factor.
+- `/` divides a measurement by a conversion factor.
+- `%` calculates an integer remainder.
+- `+=` adds to an existing variable.
+- `-=` subtracts from an existing variable.
+- `*=` multiplies an existing variable.
+- `/=` divides an existing variable.
+- Integer division discards the fractional part.
 
 ---
 
 ## Task 4
 
-**Chapter:** Input & Output — `printf`, `scanf`, format specifiers
+**Chapter:** Input & Output — `printf`, `scanf`, format specifiers, escape sequences
+
+### Feature / Mission
+
+Allow users to enter measurement values and receive calculated conversion results instead of relying on hardcoded values.
 
 ### Assignments
 
-- [ ] Display a welcome message using `printf()`.
-- [ ] Ask the user to enter an expense name.
-- [ ] Read the expense name using `scanf()`.
-- [ ] Ask the user to enter a price.
-- [ ] Read the price using `%lf`.
-- [ ] Ask the user to enter a quantity.
-- [ ] Read the quantity using `%d`.
-- [ ] Ask the user to enter a budget.
-- [ ] Read the budget using `%lf`.
-- [ ] Calculate the expense total.
-- [ ] Display the expense information using `%s`, `%d`, and `%.2f`.
+- [ ] Display the application title using `printf()`.
+- [ ] Ask the user to enter a length in meters.
+- [ ] Read the length using `scanf()` and `%lf`.
+- [ ] Ask the user to enter a mass in kilograms.
+- [ ] Read the mass using `%lf`.
+- [ ] Ask the user to enter a temperature in Celsius.
+- [ ] Calculate the corresponding conversions.
+- [ ] Display results using `%.2f`.
 - [ ] Use `\n` to separate lines.
-- [ ] Use `\t` to align information.
+- [ ] Use `\t` to align conversion information.
+- [ ] Use `%s` to display unit names.
+- [ ] Use `%d` to display the number of completed conversions.
 
 ### Code
 
 ```c
 #include <stdio.h>
 
-#define CURRENCY "EUR"
+#define APP_NAME "Unit Converter"
 
 int main(void) {
-    const double VAT_RATE = 0.19;
+    const double METERS_TO_CM = 100.0;
+    const double KG_TO_GRAMS = 1000.0;
+    const double KELVIN_OFFSET = 273.15;
 
-    char name[100];
-    double price;
-    int quantity;
-    double budget;
+    double meters;
+    double kilograms;
+    double celsius;
 
-    printf("===== EXPENSE TRACKER =====\n");
+    int conversionCount = 3;
 
-    printf("Expense name: ");
-    scanf("%99s", name);
+    printf("===== %s =====\n", APP_NAME);
 
-    printf("Price: ");
-    scanf("%lf", &price);
+    printf("Enter length in meters: ");
+    scanf("%lf", &meters);
 
-    printf("Quantity: ");
-    scanf("%d", &quantity);
+    printf("Enter mass in kilograms: ");
+    scanf("%lf", &kilograms);
 
-    printf("Budget: ");
-    scanf("%lf", &budget);
+    printf("Enter temperature in Celsius: ");
+    scanf("%lf", &celsius);
 
-    double subtotal = price * quantity;
-    double total = subtotal * (1 + VAT_RATE);
-    double remaining = budget - total;
+    double centimeters = meters * METERS_TO_CM;
+    double grams = kilograms * KG_TO_GRAMS;
+    double kelvin = celsius + KELVIN_OFFSET;
 
-    printf("\n===== EXPENSE DETAILS =====\n");
-    printf("Name:\t%s\n", name);
-    printf("Price:\t%.2f %s\n", price, CURRENCY);
-    printf("Quantity:\t%d\n", quantity);
-    printf("Total:\t%.2f %s\n", total, CURRENCY);
-    printf("Remaining:\t%.2f %s\n", remaining, CURRENCY);
+    printf("\n===== RESULTS =====\n");
+    printf("Length:\t%.2f %s\n", centimeters, "cm");
+    printf("Mass:\t%.2f %s\n", grams, "g");
+    printf("Temperature:\t%.2f %s\n", kelvin, "K");
+
+    printf("Conversions completed: %d\n", conversionCount);
 
     return 0;
 }
@@ -267,105 +297,116 @@ int main(void) {
 
 ### Explanation
 
-- `printf()` writes formatted output.
+- `printf()` displays formatted output.
 - `scanf()` reads formatted input.
-- `%s` represents a string.
-- `%d` represents an integer.
 - `%lf` reads a `double` with `scanf()`.
 - `%.2f` displays a floating-point value with two decimal places.
-- `\n` inserts a new line.
+- `%s` displays a string.
+- `%d` displays an integer.
+- `\n` inserts a newline.
 - `\t` inserts a horizontal tab.
-- `&` provides a variable's memory address to `scanf()`.
-- `%99s` limits the number of characters read into the name array.
+- `&` supplies the address of a variable to `scanf()`.
 
 ---
 
 ## Task 5
 
-**Chapter:** Conditional Statements — `if`, `else`, `switch`, `case`, `default`
+**Chapter:** Conditional Statements — `if`, `else if`, `else`, `switch`, `case`, `default`, comparison and logical operators
+
+### Feature / Mission
+
+Allow users to select a conversion type, validate the input value, and execute the appropriate calculation.
 
 ### Assignments
 
-- [ ] Reject prices less than or equal to zero.
-- [ ] Reject quantities less than or equal to zero.
-- [ ] Reject negative budgets.
-- [ ] Use `if` and `else` to accept or reject expenses.
-- [ ] Use `&&` to verify multiple conditions.
-- [ ] Use `||` to detect invalid values.
-- [ ] Use `else if` to classify expenses.
-- [ ] Classify expenses below 20 EUR as Small.
-- [ ] Classify expenses from 20 EUR through 100 EUR as Medium.
-- [ ] Classify expenses above 100 EUR as Large.
-- [ ] Ask the user to select Food, Transport, or Other.
-- [ ] Use `switch` and `case` to process the selected category.
-- [ ] Use `default` to handle an invalid category.
-- [ ] Display whether the expense exceeds the available budget.
+- [ ] Display conversion options for length, mass, and temperature.
+- [ ] Ask the user to select a conversion type.
+- [ ] Use `switch` to process the selected option.
+- [ ] Use `case` for each supported conversion.
+- [ ] Use `default` to reject unsupported options.
+- [ ] Use `if` to validate measurement values.
+- [ ] Use `else if` to classify a temperature as below freezing, freezing, or above freezing.
+- [ ] Use `else` for the remaining classification.
+- [ ] Use `&&` to verify a value is within a valid interval.
+- [ ] Use `||` to reject invalid menu options.
+- [ ] Reject negative mass values.
+- [ ] Reject Celsius temperatures below absolute zero.
+- [ ] Display the conversion result.
 
 ### Code
 
 ```c
 #include <stdio.h>
-#include <stdbool.h>
 
 int main(void) {
-    const double VAT_RATE = 0.19;
+    const double METERS_TO_CM = 100.0;
+    const double KG_TO_GRAMS = 1000.0;
+    const double KELVIN_OFFSET = 273.15;
 
-    double price;
-    double budget;
-    int quantity;
-    int category;
+    int choice;
+    double value;
+    double result;
 
-    printf("Price: ");
-    scanf("%lf", &price);
+    printf("1. Meters to Centimeters\n");
+    printf("2. Kilograms to Grams\n");
+    printf("3. Celsius to Kelvin\n");
 
-    printf("Quantity: ");
-    scanf("%d", &quantity);
-
-    printf("Budget: ");
-    scanf("%lf", &budget);
-
-    bool valid = price > 0 && quantity > 0 && budget >= 0;
-
-    if (!valid) {
-        printf("Invalid expense information.\n");
+    printf("Choice: ");
+    if (scanf("%d", &choice) != 1) {
+        printf("Invalid menu input.\n");
         return 1;
     }
 
-    double total = price * quantity * (1 + VAT_RATE);
-
-    if (total < 20) {
-        printf("Small expense\n");
-    } else if (total <= 100) {
-        printf("Medium expense\n");
-    } else {
-        printf("Large expense\n");
+    if (choice < 1 || choice > 3) {
+        printf("Invalid conversion type.\n");
+        return 1;
     }
 
-    if (total > budget) {
-        printf("Budget exceeded!\n");
-    } else {
-        printf("Expense is within budget.\n");
+    printf("Value: ");
+    if (scanf("%lf", &value) != 1) {
+        printf("Invalid measurement input.\n");
+        return 1;
     }
 
-    printf("1. Food\n");
-    printf("2. Transport\n");
-    printf("3. Other\n");
+    if (choice == 2 && value < 0) {
+        printf("Mass cannot be negative.\n");
+        return 1;
+    }
 
-    printf("Category: ");
-    scanf("%d", &category);
+    if (choice == 3 && value < -273.15) {
+        printf("Temperature is below absolute zero.\n");
+        return 1;
+    }
 
-    switch (category) {
+    if (choice == 3 && value >= -273.15) {
+        if (value < 0) {
+            printf("Below freezing.\n");
+        } else if (value == 0) {
+            printf("At freezing point.\n");
+        } else {
+            printf("Above freezing.\n");
+        }
+    }
+
+    switch (choice) {
         case 1:
-            printf("Food\n");
+            result = value * METERS_TO_CM;
+            printf("%.2f cm\n", result);
             break;
+
         case 2:
-            printf("Transport\n");
+            result = value * KG_TO_GRAMS;
+            printf("%.2f g\n", result);
             break;
+
         case 3:
-            printf("Other\n");
+            result = value + KELVIN_OFFSET;
+            printf("%.2f K\n", result);
             break;
+
         default:
-            printf("Invalid category\n");
+            printf("Unsupported conversion.\n");
+            return 1;
     }
 
     return 0;
@@ -375,36 +416,38 @@ int main(void) {
 ### Explanation
 
 - `if` executes code when a condition is true.
-- `else if` checks an additional condition.
+- `else if` checks additional conditions.
 - `else` handles the remaining case.
-- `&&` requires all connected conditions to be true.
-- `||` is true when at least one condition is true.
-- `!` negates a boolean expression.
-- `bool` stores `true` or `false`.
-- `switch` selects a branch based on an expression.
-- `case` defines a matching branch.
-- `break` exits the switch.
+- `switch` selects a branch based on a value.
+- `case` identifies a matching branch.
+- `break` prevents execution from continuing into subsequent cases.
 - `default` handles unmatched values.
+- `&&` requires both conditions to be true.
+- `||` requires at least one condition to be true.
+- Comparison operators such as `<`, `>`, `<=`, `>=`, and `==` evaluate relationships between values.
 
 ---
 
 ## Task 6
 
-**Chapter:** Loops — `for`, `while`, `do`, `break`, `continue`
+**Chapter:** Loops — `for`, `while`, `do...while`, `break`, `continue`
+
+### Feature / Mission
+
+Create an interactive conversion menu that allows users to perform multiple conversions without restarting the application.
 
 ### Assignments
 
-- [ ] Create an interactive menu.
-- [ ] Add an option to record a new expense.
-- [ ] Add an option to display total spending.
-- [ ] Add an option to exit the application.
-- [ ] Use `do...while` to repeat the menu.
+- [ ] Create a menu with conversion options.
+- [ ] Add an Exit option.
+- [ ] Use `do...while` to keep the application running.
 - [ ] Use `for` to display menu options.
-- [ ] Use `while` to request valid numeric menu input.
+- [ ] Use `while` to request valid numeric input.
 - [ ] Use `continue` to restart the menu after invalid choices.
 - [ ] Use `break` to exit the application.
-- [ ] Maintain a running total of accepted expenses.
-- [ ] Allow multiple expenses to be entered during one session.
+- [ ] Track the number of successful conversions.
+- [ ] Display the total conversion count before exiting.
+- [ ] Allow multiple conversions during one application session.
 
 ### Code
 
@@ -412,21 +455,24 @@ int main(void) {
 #include <stdio.h>
 
 int main(void) {
-    const double VAT_RATE = 0.19;
+    const double METERS_TO_CM = 100.0;
+    const double KG_TO_GRAMS = 1000.0;
+    const double KELVIN_OFFSET = 273.15;
 
     const char *options[] = {
-        "Add Expense",
-        "Show Total",
+        "Meters to Centimeters",
+        "Kilograms to Grams",
+        "Celsius to Kelvin",
         "Exit"
     };
 
-    double runningTotal = 0;
     int choice = 0;
+    int conversionCount = 0;
 
     do {
-        printf("\n===== EXPENSE TRACKER =====\n");
+        printf("\n===== UNIT CONVERTER =====\n");
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             printf("%d. %s\n", i + 1, options[i]);
         }
 
@@ -441,44 +487,58 @@ int main(void) {
             printf("Enter a number: ");
         }
 
-        if (choice < 1 || choice > 3) {
+        if (choice < 1 || choice > 4) {
             printf("Invalid choice.\n");
             continue;
         }
 
-        if (choice == 1) {
-            double price;
-            int quantity;
-
-            printf("Price: ");
-            if (scanf("%lf", &price) != 1) {
-                printf("Invalid price.\n");
-                break;
-            }
-
-            printf("Quantity: ");
-            if (scanf("%d", &quantity) != 1) {
-                printf("Invalid quantity.\n");
-                break;
-            }
-
-            if (price <= 0 || quantity <= 0) {
-                printf("Invalid expense.\n");
-                continue;
-            }
-
-            double total = price * quantity * (1 + VAT_RATE);
-
-            runningTotal += total;
-
-            printf("Expense added.\n");
-        } else if (choice == 2) {
-            printf("Total: %.2f EUR\n", runningTotal);
-        } else {
+        if (choice == 4) {
             break;
         }
 
-    } while (choice != 3);
+        double value;
+        double result;
+
+        printf("Value: ");
+
+        if (scanf("%lf", &value) != 1) {
+            int ch;
+
+            while ((ch = getchar()) != '\n' && ch != EOF) {
+            }
+
+            printf("Invalid value.\n");
+            continue;
+        }
+
+        if ((choice == 2 && value < 0) ||
+            (choice == 3 && value < -273.15)) {
+            printf("Value outside the valid range.\n");
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                result = value * METERS_TO_CM;
+                printf("%.2f cm\n", result);
+                break;
+
+            case 2:
+                result = value * KG_TO_GRAMS;
+                printf("%.2f g\n", result);
+                break;
+
+            case 3:
+                result = value + KELVIN_OFFSET;
+                printf("%.2f K\n", result);
+                break;
+        }
+
+        conversionCount++;
+
+    } while (choice != 4);
+
+    printf("Conversions completed: %d\n", conversionCount);
 
     return 0;
 }
@@ -487,11 +547,11 @@ int main(void) {
 ### Explanation
 
 - `for` repeats code using initialization, condition, and update expressions.
-- `while` repeats while a condition is true.
+- `while` repeats while a condition remains true.
 - `do...while` executes at least once before checking its condition.
 - `break` terminates the nearest enclosing loop.
-- `continue` skips the remaining statements in the current loop iteration.
-- `runningTotal` accumulates spending across multiple menu operations.
+- `continue` skips the remaining statements in the current iteration.
+- `conversionCount` tracks successful conversions across menu iterations.
 
 ---
 
@@ -499,20 +559,24 @@ int main(void) {
 
 **Chapter:** Arrays & Strings — `[]`, `char[]`, `strlen`, `strcmp`, `strcpy`
 
+### Feature / Mission
+
+Add conversion history so users can store, list, and search up to 100 previously completed conversions.
+
 ### Assignments
 
-- [ ] Create an array for expense names.
-- [ ] Create an array for expense prices.
-- [ ] Create an array for quantities.
-- [ ] Create an array for expense categories.
-- [ ] Use `MAX_EXPENSES` to limit storage to 100 records.
-- [ ] Track the number of stored expenses.
-- [ ] Store each expense at the next available index.
-- [ ] Use `strlen()` to check expense names.
-- [ ] Use `strcpy()` to copy validated names into storage.
-- [ ] Use `strcmp()` to search for expenses by name.
-- [ ] Add a List Expenses option to the menu.
-- [ ] Display all stored expenses using array traversal.
+- [ ] Create an array for original measurement values.
+- [ ] Create an array for converted values.
+- [ ] Create a two-dimensional character array for conversion names.
+- [ ] Use `MAX_CONVERSIONS` to limit history storage.
+- [ ] Track the number of stored conversions.
+- [ ] Store each successful conversion at the next available index.
+- [ ] Use `strlen()` to validate conversion names.
+- [ ] Use `strcpy()` to copy conversion names into history.
+- [ ] Use `strcmp()` to search conversion history by name.
+- [ ] Add a List History option to the menu.
+- [ ] Add a Search History option to the menu.
+- [ ] Display all stored conversions using array traversal.
 - [ ] Prevent array overflow.
 
 ### Code
@@ -521,47 +585,50 @@ int main(void) {
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_EXPENSES 100
+#define MAX_CONVERSIONS 100
+#define NAME_LENGTH 50
 
 int main(void) {
-    char names[MAX_EXPENSES][100];
-    double prices[MAX_EXPENSES];
-    int quantities[MAX_EXPENSES];
-    int categories[MAX_EXPENSES];
+    char conversionNames[MAX_CONVERSIONS][NAME_LENGTH];
+    double originalValues[MAX_CONVERSIONS];
+    double convertedValues[MAX_CONVERSIONS];
 
     int count = 0;
 
-    char newName[100] = "Coffee";
-    double newPrice = 3.50;
-    int newQuantity = 2;
-    int newCategory = 1;
+    char name[] = "Meters to Centimeters";
+    double original = 5.0;
+    double converted = original * 100.0;
 
-    if (count < MAX_EXPENSES && strlen(newName) > 0) {
-        strcpy(names[count], newName);
+    if (count < MAX_CONVERSIONS &&
+        strlen(name) > 0 &&
+        strlen(name) < NAME_LENGTH) {
 
-        prices[count] = newPrice;
-        quantities[count] = newQuantity;
-        categories[count] = newCategory;
+        strcpy(conversionNames[count], name);
+        originalValues[count] = original;
+        convertedValues[count] = converted;
 
         count++;
     }
 
-    printf("\n===== EXPENSES =====\n");
+    printf("\n===== CONVERSION HISTORY =====\n");
 
     for (int i = 0; i < count; i++) {
-        double total = prices[i] * quantities[i];
-
-        printf("%d. %s: %.2f EUR\n",
+        printf("%d. %s: %.2f -> %.2f\n",
                i + 1,
-               names[i],
-               total);
+               conversionNames[i],
+               originalValues[i],
+               convertedValues[i]);
     }
 
-    char searchName[] = "Coffee";
+    char searchName[] = "Meters to Centimeters";
+
+    printf("\n===== SEARCH RESULTS =====\n");
 
     for (int i = 0; i < count; i++) {
-        if (strcmp(names[i], searchName) == 0) {
-            printf("Found: %s\n", names[i]);
+        if (strcmp(conversionNames[i], searchName) == 0) {
+            printf("Found: %.2f -> %.2f\n",
+                   originalValues[i],
+                   convertedValues[i]);
         }
     }
 
@@ -573,36 +640,43 @@ int main(void) {
 
 - `[]` declares arrays and accesses their elements.
 - One-dimensional arrays store multiple values of the same type.
-- Multidimensional arrays store data across multiple dimensions.
+- Two-dimensional character arrays can store multiple strings.
 - `char[]` stores null-terminated strings.
 - `strlen()` calculates string length.
 - `strcmp()` compares strings.
-- `strcpy()` copies a string into a sufficiently large destination array.
+- `strcpy()` copies strings into sufficiently large destination arrays.
 - Array indexing begins at zero.
 - Array traversal processes stored elements using loops.
-- `count` tracks the number of stored records.
+- `count` tracks the number of stored conversions.
 
 ---
 
 ## Task 8
 
-**Chapter:** Functions — `void`, `return`, parameters, function calls
+**Chapter:** Functions — `void`, `return`, parameters, function calls, scope
+
+### Feature / Mission
+
+Organize the Unit Converter into reusable functions, integrate conversion history, and create a complete interactive application.
 
 ### Assignments
 
 - [ ] Create a function to display the application menu.
-- [ ] Create a function to add an expense.
-- [ ] Create a function to list stored expenses.
-- [ ] Create a function to calculate total spending.
-- [ ] Create a function to calculate average spending.
-- [ ] Create a function to find the largest expense.
+- [ ] Create a function to convert meters to centimeters.
+- [ ] Create a function to convert centimeters to meters.
+- [ ] Create a function to convert kilograms to grams.
+- [ ] Create a function to convert grams to kilograms.
+- [ ] Create a function to convert Celsius to Kelvin.
+- [ ] Create a function to convert Kelvin to Celsius.
+- [ ] Create a function to add a conversion to history.
+- [ ] Create a function to list conversion history.
+- [ ] Create a function to search conversion history.
 - [ ] Declare function prototypes before `main()`.
 - [ ] Define functions with appropriate parameters.
 - [ ] Use `void` for functions that do not return values.
 - [ ] Use `return` to return calculated results.
-- [ ] Pass arrays and expense counts to functions.
+- [ ] Pass arrays and conversion counts to functions.
 - [ ] Use local variables for intermediate calculations.
-- [ ] Reuse existing functions instead of duplicating logic.
 - [ ] Integrate all functions into the interactive menu.
 
 ### Code
@@ -612,117 +686,91 @@ int main(void) {
 
 void showMenu(void);
 
-double calculateTotal(
-    double prices[],
-    int quantities[],
-    int count
-);
+double metersToCentimeters(double meters);
+double centimetersToMeters(double centimeters);
 
-double calculateAverage(
-    double prices[],
-    int quantities[],
-    int count
-);
+double kilogramsToGrams(double kilograms);
+double gramsToKilograms(double grams);
 
-double findLargest(
-    double prices[],
-    int quantities[],
-    int count
-);
+double celsiusToKelvin(double celsius);
+double kelvinToCelsius(double kelvin);
 
 void showMenu(void) {
-    printf("\n===== EXPENSE TRACKER =====\n");
-    printf("1. Add Expense\n");
-    printf("2. List Expenses\n");
-    printf("3. Show Total\n");
-    printf("4. Show Average\n");
-    printf("5. Show Largest Expense\n");
-    printf("6. Exit\n");
+    printf("\n===== UNIT CONVERTER =====\n");
+
+    printf("1. Meters to Centimeters\n");
+    printf("2. Centimeters to Meters\n");
+    printf("3. Kilograms to Grams\n");
+    printf("4. Grams to Kilograms\n");
+    printf("5. Celsius to Kelvin\n");
+    printf("6. Kelvin to Celsius\n");
+    printf("7. List History\n");
+    printf("8. Search History\n");
+    printf("9. Exit\n");
 }
 
-double calculateTotal(
-    double prices[],
-    int quantities[],
-    int count
-) {
-    double total = 0;
-
-    for (int i = 0; i < count; i++) {
-        total += prices[i] * quantities[i];
-    }
-
-    return total;
+double metersToCentimeters(double meters) {
+    return meters * 100.0;
 }
 
-double calculateAverage(
-    double prices[],
-    int quantities[],
-    int count
-) {
-    if (count == 0) {
-        return 0;
-    }
-
-    return calculateTotal(prices, quantities, count) / count;
+double centimetersToMeters(double centimeters) {
+    return centimeters / 100.0;
 }
 
-double findLargest(
-    double prices[],
-    int quantities[],
-    int count
-) {
-    if (count == 0) {
-        return 0;
-    }
+double kilogramsToGrams(double kilograms) {
+    return kilograms * 1000.0;
+}
 
-    double largest = prices[0] * quantities[0];
+double gramsToKilograms(double grams) {
+    return grams / 1000.0;
+}
 
-    for (int i = 1; i < count; i++) {
-        double amount = prices[i] * quantities[i];
+double celsiusToKelvin(double celsius) {
+    return celsius + 273.15;
+}
 
-        if (amount > largest) {
-            largest = amount;
-        }
-    }
-
-    return largest;
+double kelvinToCelsius(double kelvin) {
+    return kelvin - 273.15;
 }
 ```
 
 ### Explanation
 
 - Function declarations introduce functions before their definitions.
-- Function definitions contain the implementation.
-- Parameters allow functions to receive data.
+- Function definitions contain reusable implementations.
+- Parameters allow functions to receive measurement values.
 - Function calls execute reusable code.
 - `void` indicates that a function returns no value.
-- `return` sends a result back to the caller.
+- `return` sends a calculated result to the caller.
 - Local variables exist within their declaring scope.
-- Function reuse avoids duplicated calculations.
-- Passing arrays allows functions to process stored expenses.
+- Function reuse avoids duplicated conversion formulas.
+- Passing arrays allows functions to process conversion history.
 
 ---
 
 ## Final Application Requirements
 
-- [ ] Record new expenses.
-- [ ] Accept expense names, prices, and quantities.
-- [ ] Calculate subtotal, VAT, and total.
-- [ ] Validate user input.
-- [ ] Classify expenses.
-- [ ] Store up to 100 expenses.
-- [ ] List stored expenses.
-- [ ] Search expenses by name.
-- [ ] Calculate total spending.
-- [ ] Calculate average spending.
-- [ ] Find the largest expense.
-- [ ] Navigate an interactive menu.
+- [ ] Convert meters to centimeters.
+- [ ] Convert centimeters to meters.
+- [ ] Convert kilograms to grams.
+- [ ] Convert grams to kilograms.
+- [ ] Convert Celsius to Kelvin.
+- [ ] Convert Kelvin to Celsius.
+- [ ] Accept measurement values from the user.
+- [ ] Validate measurement values and menu input.
+- [ ] Display formatted conversion results.
+- [ ] Perform multiple conversions in one session.
+- [ ] Store up to 100 conversions.
+- [ ] List conversion history.
+- [ ] Search conversion history by name.
+- [ ] Track the number of successful conversions.
+- [ ] Use reusable functions for conversions and history operations.
 - [ ] Exit the application safely.
 
 ## Repository Structure
 
 ```text
-c-000-expense-tracker/
+c-000-unit-converter/
 ├── README.md
 └── main.c
 ```
