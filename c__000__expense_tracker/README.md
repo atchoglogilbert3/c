@@ -1,465 +1,386 @@
 
 # C-000 — Expense Tracker
 
+**Language:** C  
+**Level:** Beginner  
+**Repository:** `c-000-expense-tracker`
+
 ## Project Overview
 
 Build a command-line Expense Tracker in C.
 
-The application allows users to record expenses, display
-stored expenses, and calculate total spending.
+The application allows users to add expenses, view stored expenses, and calculate spending statistics.
 
-The project introduces the fundamentals of C programming
-through incremental development of a functional application.
-
-**Level:** Beginner  
-**Language:** C  
-**Repository:** `c-000-expense-tracker`
+Each task introduces one new chapter of C programming and extends the existing application.
 
 ---
 
-# Learning Objectives
+## Task 1 — C Fundamentals
 
-## Programming Chapters
+**Feature:** Create and display an expense.
 
-1. C Fundamentals
-2. Data Types and Expressions
-3. Console Input and Output
-4. Conditional Statements
-5. Loops
-6. Functions
-7. Arrays
-8. Strings
-
----
-
-# Module 1 — Basic Expense Calculator
-
-## Goal
-
-Create a console application that accepts one expense
-and displays its information.
-
-### Task 1.1 — Create an Expense
-
-**Skills / Topics:**
+**New Concepts:**
 - Variables
 - Data Types
-- Variable Initialization
+- Constants
+- Arithmetic Operators
 - Assignment Operators
 
-**Assignment:**
+### Coding Assignments
 
-1. Create a variable for the expense name.
-2. Create a variable for the expense amount.
-3. Initialize both variables.
-4. Store an example expense.
+- [ ] Create a variable to store an expense name.
+- [ ] Create a variable to store an expense price.
+- [ ] Create a variable to store the quantity purchased.
+- [ ] Calculate the total expense using price × quantity.
+- [ ] Display the expense information.
 
-**Code Snippet:**
+### Code Snippet
 
 ```c
-char name[] = "Groceries";
-double amount = 25.50;
+char name[] = "Coffee";
+double price = 3.50;
+int quantity = 2;
+
+double total = price * quantity;
 ```
 
-**Expected Result:**
+### Expected Output
 
-The application stores an expense name and amount.
+```text
+Expense: Coffee
+Price: 3.50 EUR
+Quantity: 2
+Total: 7.00 EUR
+```
 
-### Task 1.2 — Display the Expense
+---
 
-**Skills / Topics:**
+## Task 2 — Input and Output
+
+**Feature:** Accept expenses from the user.
+
+**New Concepts:**
+- Standard Input
 - Standard Output
 - printf()
+- scanf()
 - Format Specifiers
 - Escape Sequences
 
-**Assignment:**
+### Coding Assignments
 
-1. Display the expense name.
-2. Display the expense amount.
-3. Format the amount to two decimal places.
-4. Display the currency EUR.
+- [ ] Ask the user to enter an expense name.
+- [ ] Read the expense name.
+- [ ] Ask the user to enter an expense price.
+- [ ] Read the price.
+- [ ] Ask the user to enter a quantity.
+- [ ] Calculate the total expense.
+- [ ] Display the entered expense information.
 
-**Code Snippet:**
-
-```c
-printf("%s: %.2f EUR\n", name, amount);
-```
-
-**Expected Output:**
-
-```text
-Groceries: 25.50 EUR
-```
-
-### Task 1.3 — Accept User Input
-
-**Skills / Topics:**
-- Standard Input
-- scanf()
-- Input Formatting
-- Character Arrays
-
-**Assignment:**
-
-1. Ask the user for an expense name.
-2. Read the expense name.
-3. Ask the user for an amount.
-4. Read the amount.
-5. Display the entered expense.
-
-**Code Snippet:**
+### Code Snippet
 
 ```c
 char name[100];
-double amount;
+double price;
+int quantity;
 
 printf("Expense name: ");
 scanf("%99s", name);
 
-printf("Amount: ");
-scanf("%lf", &amount);
+printf("Price: ");
+scanf("%lf", &price);
+
+printf("Quantity: ");
+scanf("%d", &quantity);
 ```
 
-**Expected Output:**
+### Expected Output
 
 ```text
-Expense name: Food
-Amount: 15.50
+Expense name: Coffee
+Price: 3.50
+Quantity: 2
 
-Food: 15.50 EUR
+Coffee: 7.00 EUR
 ```
-
-**Module 1 Result:**
-
-A working application that accepts and displays
-a single expense.
 
 ---
 
-# Module 2 — Expense Validation
+## Task 3 — Conditional Statements
 
-## Goal
+**Feature:** Validate and classify expenses.
 
-Validate expense amounts before accepting them.
-
-### Task 2.1 — Validate Positive Amounts
-
-**Skills / Topics:**
-- Relational Operators
-- Boolean Expressions
-- Conditional Statements
-- if / else
-
-**Assignment:**
-
-1. Read an expense amount.
-2. Check whether the amount is positive.
-3. Accept valid amounts.
-4. Reject zero or negative amounts.
-
-**Code Snippet:**
-
-```c
-if (amount > 0) {
-    printf("Expense accepted.\n");
-} else {
-    printf("Invalid amount.\n");
-}
-```
-
-### Task 2.2 — Classify Expenses
-
-**Skills / Topics:**
-- Logical Operators
+**New Concepts:**
+- if
 - else if
-- Multiple Conditions
+- else
+- Comparison Operators
+- Logical Operators
+- Boolean Expressions
 
-**Assignment:**
+### Coding Assignments
 
-Classify expenses into three categories:
+- [ ] Reject negative expense prices.
+- [ ] Reject zero expense prices.
+- [ ] Reject quantities smaller than one.
+- [ ] Accept valid expenses.
+- [ ] Classify expenses according to their total amount.
+- [ ] Display an appropriate validation message.
 
-- Small: below 20 EUR
-- Medium: 20–100 EUR
-- Large: above 100 EUR
+### Expense Categories
 
-**Code Snippet:**
+| Category | Amount |
+|---|---|
+| Small | Below 20 EUR |
+| Medium | 20–100 EUR |
+| Large | Above 100 EUR |
+
+### Code Snippet
 
 ```c
-if (amount < 20) {
-    printf("Small expense\n");
-} else if (amount <= 100) {
-    printf("Medium expense\n");
+if (price <= 0 || quantity <= 0) {
+    printf("Invalid expense.\n");
+} else if (total < 20) {
+    printf("Small expense.\n");
+} else if (total <= 100) {
+    printf("Medium expense.\n");
 } else {
-    printf("Large expense\n");
+    printf("Large expense.\n");
 }
 ```
 
-**Module 2 Result:**
+### Expected Output
 
-An expense calculator with amount validation
-and expense classification.
+```text
+Expense name: Coffee
+Price: 3.50
+Quantity: 2
+
+Expense accepted.
+Category: Small
+```
 
 ---
 
-# Module 3 — Interactive Expense Menu
+## Task 4 — Loops
 
-## Goal
+**Feature:** Create an interactive expense menu.
 
-Allow users to interact with the application
-through a menu.
-
-### Task 3.1 — Create the Main Menu
-
-**Skills / Topics:**
-- Integer Variables
-- switch Statements
-- case Labels
-- break
-- default
-
-**Assignment:**
-
-Create a menu containing:
-
-1. Add expense
-2. Show total
-3. Exit
-
-**Code Snippet:**
-
-```c
-switch (choice) {
-    case 1:
-        printf("Add expense\n");
-        break;
-
-    case 2:
-        printf("Show total\n");
-        break;
-
-    case 3:
-        printf("Goodbye!\n");
-        break;
-
-    default:
-        printf("Invalid choice\n");
-}
-```
-
-### Task 3.2 — Keep the Application Running
-
-**Skills / Topics:**
+**New Concepts:**
 - while Loops
 - do-while Loops
+- for Loops
 - Loop Conditions
-- Loop Control
+- break
+- continue
 
-**Assignment:**
+### Coding Assignments
 
-1. Display the main menu.
-2. Read the user's choice.
-3. Execute the selected action.
-4. Return to the menu.
-5. Stop only when the user selects Exit.
+- [ ] Create an interactive menu.
+- [ ] Add an option to enter a new expense.
+- [ ] Add an option to display the current total.
+- [ ] Add an option to exit the application.
+- [ ] Repeat the menu after each operation.
+- [ ] Stop the application only when Exit is selected.
+- [ ] Handle invalid menu choices.
 
-**Code Snippet:**
+### Code Snippet
 
 ```c
 int choice;
 
 do {
-    printf("\n1. Add expense\n");
-    printf("2. Show total\n");
+    printf("\n1. Add Expense\n");
+    printf("2. Show Total\n");
     printf("3. Exit\n");
 
+    printf("Choice: ");
     scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            printf("Add Expense\n");
+            break;
+
+        case 2:
+            printf("Show Total\n");
+            break;
+
+        case 3:
+            printf("Goodbye!\n");
+            break;
+
+        default:
+            printf("Invalid choice.\n");
+    }
 
 } while (choice != 3);
 ```
 
-**Module 3 Result:**
+### Expected Output
 
-An interactive console application with
-a repeating menu.
+```text
+1. Add Expense
+2. Show Total
+3. Exit
+
+Choice: 1
+
+Expense name: Coffee
+Price: 3.50
+Quantity: 2
+
+Expense accepted.
+
+1. Add Expense
+2. Show Total
+3. Exit
+
+Choice:
+```
 
 ---
 
-# Module 4 — Multiple Expenses
+## Task 5 — Arrays and Strings
 
-## Goal
+**Feature:** Store and display multiple expenses.
 
-Store multiple expenses during application execution.
-
-### Task 4.1 — Store Expense Amounts
-
-**Skills / Topics:**
-- Arrays
-- Array Indexing
-- Array Initialization
-- Array Bounds
-
-**Assignment:**
-
-1. Create an array for expense amounts.
-2. Allow users to add expenses.
-3. Store each amount in the next available position.
-4. Limit the number of expenses to 100.
-
-**Code Snippet:**
-
-```c
-double amounts[100];
-int count = 0;
-
-if (count < 100) {
-    amounts[count] = 25.50;
-    count++;
-}
-```
-
-### Task 4.2 — Store Expense Names
-
-**Skills / Topics:**
-- Character Arrays
+**New Concepts:**
+- One-Dimensional Arrays
 - Multidimensional Arrays
-- C Strings
-- String Storage
+- Character Arrays
+- Strings
+- Array Indexing
+- Array Traversal
+- String Handling
 
-**Assignment:**
+### Coding Assignments
 
-1. Create an array for expense names.
-2. Store a name for each expense.
-3. Associate each name with its amount.
-4. Maintain matching array indexes.
+- [ ] Create an array for expense names.
+- [ ] Create an array for expense prices.
+- [ ] Create an array for quantities.
+- [ ] Store up to 100 expenses.
+- [ ] Keep track of the number of stored expenses.
+- [ ] Add a List Expenses option to the menu.
+- [ ] Display all stored expenses.
+- [ ] Display a message when no expenses exist.
+- [ ] Prevent adding expenses when the arrays are full.
 
-**Code Snippet:**
+### Code Snippet
 
 ```c
-char names[100][100];
-double amounts[100];
+#define MAX_EXPENSES 100
+
+char names[MAX_EXPENSES][100];
+double prices[MAX_EXPENSES];
+int quantities[MAX_EXPENSES];
+
+int count = 0;
 ```
 
-### Task 4.3 — List All Expenses
-
-**Skills / Topics:**
-- for Loops
-- Array Traversal
-- Indexed Access
-
-**Assignment:**
-
-1. Add a List Expenses menu option.
-2. Iterate through stored expenses.
-3. Display each expense name and amount.
-4. Display a message when the list is empty.
-
-**Code Snippet:**
+### Listing Expenses
 
 ```c
 for (int i = 0; i < count; i++) {
-    printf("%s: %.2f EUR\n",
-           names[i], amounts[i]);
+    double total = prices[i] * quantities[i];
+
+    printf("%d. %s: %.2f EUR\n",
+           i + 1, names[i], total);
 }
 ```
 
-**Module 4 Result:**
+### Expected Output
 
-An application capable of storing and listing
-up to 100 expenses.
+```text
+========== EXPENSES ==========
+
+1. Coffee: 7.00 EUR
+2. Transport: 15.00 EUR
+3. Groceries: 45.50 EUR
+
+Total Records: 3
+```
 
 ---
 
-# Module 5 — Expense Calculations
+## Task 6 — Functions
 
-## Goal
+**Feature:** Calculate expense statistics and organize application logic.
 
-Calculate spending statistics using functions.
-
-### Task 5.1 — Calculate Total Expenses
-
-**Skills / Topics:**
-- Functions
+**New Concepts:**
+- Function Declarations
+- Function Definitions
 - Function Parameters
 - Return Values
-- Function Declarations
+- Function Calls
+- Local Variables
+- Variable Scope
+- Function Reuse
 
-**Assignment:**
+### Coding Assignments
 
-1. Create a function named calculateTotal.
-2. Accept an array of amounts.
-3. Accept the number of expenses.
-4. Calculate and return the total.
-5. Display the result in the main menu.
+- [ ] Create a function to display the menu.
+- [ ] Create a function to add an expense.
+- [ ] Create a function to list stored expenses.
+- [ ] Create a function to calculate total spending.
+- [ ] Create a function to calculate average spending.
+- [ ] Create a function to find the largest expense.
+- [ ] Handle calculations when no expenses exist.
+- [ ] Integrate all functions into the main application.
 
-**Code Snippet:**
+### Code Snippet
 
 ```c
-double calculateTotal(double amounts[], int count) {
+double calculateTotal(
+    double prices[],
+    int quantities[],
+    int count
+) {
     double total = 0;
 
     for (int i = 0; i < count; i++) {
-        total += amounts[i];
+        total += prices[i] * quantities[i];
     }
 
     return total;
 }
 ```
 
-### Task 5.2 — Calculate Average Spending
-
-**Skills / Topics:**
-- Arithmetic Expressions
-- Type Conversion
-- Function Reuse
-- Division
-
-**Assignment:**
-
-1. Create a function named calculateAverage.
-2. Reuse calculateTotal.
-3. Divide the total by the number of expenses.
-4. Handle an empty expense list.
-
-**Code Snippet:**
+### Average Spending
 
 ```c
-double calculateAverage(double amounts[], int count) {
+double calculateAverage(
+    double prices[],
+    int quantities[],
+    int count
+) {
     if (count == 0) {
         return 0;
     }
 
-    return calculateTotal(amounts, count) / count;
+    return calculateTotal(prices, quantities, count) / count;
 }
 ```
 
-### Task 5.3 — Find the Largest Expense
-
-**Skills / Topics:**
-- Comparison Operators
-- Array Traversal
-- Accumulator Variables
-
-**Assignment:**
-
-1. Create a function named findLargest.
-2. Compare all stored amounts.
-3. Return the largest amount.
-4. Handle an empty expense list.
-
-**Code Snippet:**
+### Largest Expense
 
 ```c
-double findLargest(double amounts[], int count) {
+double findLargest(
+    double prices[],
+    int quantities[],
+    int count
+) {
     if (count == 0) {
         return 0;
     }
 
-    double largest = amounts[0];
+    double largest = prices[0] * quantities[0];
 
     for (int i = 1; i < count; i++) {
-        if (amounts[i] > largest) {
-            largest = amounts[i];
+        double amount = prices[i] * quantities[i];
+
+        if (amount > largest) {
+            largest = amount;
         }
     }
 
@@ -467,60 +388,22 @@ double findLargest(double amounts[], int count) {
 }
 ```
 
-**Module 5 Result:**
+### Expected Output
 
-An expense tracker capable of calculating:
+```text
+========== EXPENSE STATISTICS ==========
 
-- Total spending
-- Average spending
-- Largest expense
+Number of Expenses: 3
+Total Spending: 67.50 EUR
+Average Spending: 22.50 EUR
+Largest Expense: 45.50 EUR
+```
 
 ---
 
-# Module 6 — Final Integration
+## Final Application
 
-## Goal
-
-Combine all previously developed features
-into one complete command-line application.
-
-### Task 6.1 — Organize Application Functions
-
-**Skills / Topics:**
-- Function Composition
-- Function Prototypes
-- Local Variables
-- Scope
-- Code Reuse
-
-**Assignment:**
-
-Organize the application into functions:
-
-```c
-void showMenu(void);
-void addExpense(void);
-void listExpenses(void);
-
-double calculateTotal(double amounts[], int count);
-double calculateAverage(double amounts[], int count);
-double findLargest(double amounts[], int count);
-```
-
-Adapt function parameters as necessary to share
-the expense data correctly.
-
-### Task 6.2 — Integrate the Main Menu
-
-**Skills / Topics:**
-- Control Flow Integration
-- Function Calls
-- Program State
-- Modular Code Organization
-
-**Assignment:**
-
-Implement the final menu:
+After completing all six tasks, the Expense Tracker should provide the following menu:
 
 ```text
 ========== EXPENSE TRACKER ==========
@@ -535,56 +418,23 @@ Implement the final menu:
 Choose an option:
 ```
 
-### Task 6.3 — Handle Invalid Input
+### Final Requirements
 
-**Skills / Topics:**
-- Input Validation
-- scanf() Return Values
-- Input Buffer Handling
-- Defensive Programming
-
-**Assignment:**
-
-1. Reject nonnumeric amounts.
-2. Reject negative or zero amounts.
-3. Reject invalid menu selections.
-4. Prevent array overflow.
-5. Handle an empty expense list.
-6. Ensure invalid input does not cause an infinite loop.
-
-**Code Snippet:**
-
-```c
-double amount;
-
-if (scanf("%lf", &amount) != 1) {
-    printf("Invalid numeric input.\n");
-}
-```
-
-Remember to clear or consume invalid input before
-requesting another value.
+- [ ] Add new expenses.
+- [ ] Validate expense prices and quantities.
+- [ ] Classify expenses by amount.
+- [ ] Store up to 100 expenses.
+- [ ] List all stored expenses.
+- [ ] Calculate total spending.
+- [ ] Calculate average spending.
+- [ ] Find the largest expense.
+- [ ] Handle invalid user input.
+- [ ] Provide an interactive menu.
+- [ ] Exit the application safely.
 
 ---
 
-# Final Application Requirements
-
-The completed application must support:
-
-- [ ] Adding expenses
-- [ ] Storing up to 100 expenses
-- [ ] Listing all expenses
-- [ ] Calculating total spending
-- [ ] Calculating average spending
-- [ ] Finding the largest expense
-- [ ] Classifying expenses by amount
-- [ ] Validating user input
-- [ ] Navigating an interactive menu
-- [ ] Exiting the application safely
-
----
-
-# Suggested Repository Structure
+## Repository Structure
 
 ```text
 c-000-expense-tracker/
@@ -592,27 +442,22 @@ c-000-expense-tracker/
 └── main.c
 ```
 
-All modules can initially be developed inside `main.c`.
+## Completion Checklist
 
-More advanced source-code organization will be introduced
-in Project 001.
-
----
-
-# Completion Criteria
-
-- [ ] Module 1 — Basic Expense Calculator
-- [ ] Module 2 — Expense Validation
-- [ ] Module 3 — Interactive Expense Menu
-- [ ] Module 4 — Multiple Expenses
-- [ ] Module 5 — Expense Calculations
-- [ ] Module 6 — Final Integration
+- [ ] Task 1 — C Fundamentals
+- [ ] Task 2 — Input and Output
+- [ ] Task 3 — Conditional Statements
+- [ ] Task 4 — Loops
+- [ ] Task 5 — Arrays and Strings
+- [ ] Task 6 — Functions
 
 ---
 
-# Next Project
+## Next Project
 
 **C-001 — Student Management System**
+
+**Repository:** `c-001-student-management`
 
 New programming chapters:
 
