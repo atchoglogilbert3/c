@@ -5,26 +5,25 @@
 **Level:** Beginner  
 **Repository:** `c-000-unit-converter`
 
-## Project
+## Project Overview
 
-Build a command-line unit converter in C.
+Build a command-line application that converts measurements between different units.
 
-Start with a simple calculation, then add user input, conversion choices, a menu, history, and reusable functions.
+The application starts with a single conversion and gradually develops into a complete unit converter with a menu, input validation, conversion history, and reusable functions.
 
-Each task introduces a new programming chapter. Code snippets show only what's new or changed, rather than repeating the whole program.
+Every task adds a useful feature to the same application.
 
-## Chapters
+## Programming Roadmap
 
-| Task | Chapter | New Concepts |
+| Task | Chapter | Feature |
 |---|---|---|
-| 1 | Variables & Data Types | `int`, `double`, `char`, declarations, initialization |
-| 2 | Constants | `const`, `#define` |
-| 3 | Operators | Arithmetic, assignment, compound assignment, modulo |
-| 4 | Input & Output | `printf`, `scanf`, format specifiers |
-| 5 | Conditional Statements | `if`, `else if`, `else`, `switch`, comparison and logical operators |
-| 6 | Loops | `for`, `while`, `do...while`, `break`, `continue` |
-| 7 | Arrays & Strings | Arrays, indexing, `strlen`, `strcmp`, `strcpy` |
-| 8 | Functions | Function declarations, definitions, parameters, return values, scope |
+| 1 | Variables & Data Types | Store and display a measurement |
+| 2 | Constants & Arithmetic Operators | Calculate meters to centimeters |
+| 3 | Input & Output | Let the user enter a measurement |
+| 4 | Conditional Statements | Choose between different conversions |
+| 5 | Loops | Convert multiple measurements without restarting |
+| 6 | Arrays & Strings | Save and search conversion history |
+| 7 | Functions | Organize the application into reusable functions |
 
 ---
 
@@ -34,421 +33,759 @@ Each task introduces a new programming chapter. Code snippets show only what's n
 
 ### Feature / Mission
 
-Create a measurement record that stores the information needed for a conversion.
+Create a basic measurement display.
+
+The application stores a measurement's value and unit, then displays them.
 
 ### Assignments
 
-- [ ] Store the original measurement as a decimal number.
-- [ ] Store the converted result as a decimal number.
-- [ ] Give the conversion a numeric ID.
-- [ ] Store a one-character unit symbol.
-- [ ] Store the measurement name as text.
-
-### Code
-
-```c
-int id = 1;
-double value = 5.0, result = 500.0;
-char unit = 'm';
-char measurement[] = "Length";
-```
-
-### Explanation
-
-- `int` stores whole numbers.
-- `double` stores decimal numbers.
-- `char` stores one character.
-- `char[]` stores a string.
-- Variables can be declared and initialized in the same statement.
-- Multiple variables of the same type can share a declaration.
-
----
-
-## Task 2
-
-**Chapter:** Constants
-
-### Feature / Mission
-
-Add fixed conversion settings that shouldn't change while the program runs.
-
-### Assignments
-
-- [ ] Create a constant for converting meters to centimeters.
-- [ ] Define the maximum number of conversions the program can save.
-- [ ] Define a name for the application.
-- [ ] Use the conversion factor instead of a hardcoded result.
-
-### Code
-
-```c
-#define MAX_HISTORY 100
-#define APP_NAME "Unit Converter"
-
-const double CM_PER_METER = 100.0;
-```
-
-### Explanation
-
-- `const` creates a read-only variable.
-- `#define` creates a preprocessor macro.
-- Named constants make values easier to reuse.
-
----
-
-## Task 3
-
-**Chapter:** Operators
-
-### Feature / Mission
-
-Turn the measurement record into a working calculator.
-
-The program should calculate the converted value instead of storing a manually calculated answer.
-
-### Assignments
-
-- [ ] Calculate centimeters from meters using multiplication.
-- [ ] Calculate meters from centimeters using division.
-- [ ] Add an offset to convert Celsius into Kelvin.
-- [ ] Use compound assignment to update a measurement.
-- [ ] Split a whole number of centimeters into meters and leftover centimeters using integer division and modulo.
-- [ ] Store the final result.
-
-### Code
-
-```c
-double result = value * CM_PER_METER;
-
-result /= CM_PER_METER;
-
-double kelvin = 25.0 + 273.15;
-
-int centimeters = 257;
-int meters = centimeters / 100;
-int remainder = centimeters % 100;
-```
-
-### Explanation
-
-- `*` multiplies values.
-- `/` divides values.
-- `+` adds values.
-- `=` assigns a value.
-- `/=` updates a variable by dividing its current value.
-- `%` gives the remainder of integer division.
-- Integer division and floating-point division behave differently.
-
----
-
-## Task 4
-
-**Chapter:** Input & Output
-
-### Feature / Mission
-
-Let the user enter a measurement and see its converted value.
-
-### Assignments
-
-- [ ] Ask the user for a measurement.
-- [ ] Read a decimal number from the keyboard.
-- [ ] Check whether reading the number succeeded.
-- [ ] Calculate the conversion.
-- [ ] Display the result with two decimal places.
+- [ ] Create a decimal variable to store the measurement.
+- [ ] Create a character variable to store its unit.
+- [ ] Display the measurement.
 
 ### Code
 
 ```c
 #include <stdio.h>
 
-double value;
+int main(void) {
+    double value = 5.0;
+    char unit = 'm';
 
-printf("Meters: ");
+    printf("%.2f %c\n", value, unit);
 
-if (scanf("%lf", &value) != 1) {
-    return 1;
+    return 0;
 }
-
-printf("Centimeters: %.2f\n", value * CM_PER_METER);
 ```
 
 ### Explanation
 
-- `#include <stdio.h>` provides standard input/output functions.
-- `printf()` displays text and values.
-- `scanf()` reads user input.
-- `%lf` reads a `double`.
-- `&` passes the address where input should be stored.
-- `%.2f` displays two decimal places.
-- `\n` adds a new line.
-- `scanf()` returns the number of successfully assigned input values.
+- `double` stores a decimal number.
+- `char` stores a single character.
+- `=` initializes a variable.
+- `printf()` displays the measurement.
+- `%f` formats a floating-point number.
+- `%c` formats a character.
+
+### Expected Output
+
+```text
+5.00 m
+```
 
 ---
 
-## Task 5
+## Task 2
+
+**Chapter:** Constants & Arithmetic Operators
+
+### Feature / Mission
+
+Convert a measurement from meters to centimeters.
+
+Instead of displaying a hardcoded result, the application calculates it using a conversion factor.
+
+### Assignments
+
+- [ ] Define a constant for the number of centimeters in one meter.
+- [ ] Multiply the measurement by the conversion factor.
+- [ ] Store the calculated result.
+- [ ] Display the original measurement and converted result.
+
+### Code
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    const double CM_PER_METER = 100.0;
+
+    double value = 5.0;
+    double result = value * CM_PER_METER;
+
+    printf("%.2f m = %.2f cm\n", value, result);
+
+    return 0;
+}
+```
+
+### Explanation
+
+- `const` defines a value that cannot be reassigned.
+- `*` multiplies two numbers.
+- `result` stores the calculated conversion.
+
+### Expected Output
+
+```text
+5.00 m = 500.00 cm
+```
+
+---
+
+## Task 3
+
+**Chapter:** Input & Output
+
+### Feature / Mission
+
+Allow the user to enter the measurement they want to convert.
+
+The application should no longer require source-code changes to convert a different value.
+
+### Assignments
+
+- [ ] Ask the user to enter a value in meters.
+- [ ] Read the value from the keyboard.
+- [ ] Convert the entered value into centimeters.
+- [ ] Display the result.
+
+### Code
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    const double CM_PER_METER = 100.0;
+
+    double value;
+
+    printf("Enter meters: ");
+    scanf("%lf", &value);
+
+    double result = value * CM_PER_METER;
+
+    printf("%.2f m = %.2f cm\n", value, result);
+
+    return 0;
+}
+```
+
+### Explanation
+
+- `scanf()` reads user input.
+- `%lf` reads a `double`.
+- `&value` gives `scanf()` the variable's memory address.
+- The entered value is used in the calculation.
+
+### Example
+
+```text
+Enter meters: 2.5
+2.50 m = 250.00 cm
+```
+
+---
+
+## Task 4
 
 **Chapter:** Conditional Statements
 
 ### Feature / Mission
 
-Let the user choose between different conversions.
+Allow the user to choose the direction of the conversion.
 
-The program should run the selected calculation and reject invalid choices.
+The converter now supports both meters to centimeters and centimeters to meters.
 
 ### Assignments
 
-- [ ] Ask the user to select a conversion.
-- [ ] Use `switch` to choose the correct calculation.
-- [ ] Add meters-to-centimeters conversion.
-- [ ] Add centimeters-to-meters conversion.
-- [ ] Add Celsius-to-Kelvin conversion.
-- [ ] Use `if` to reject temperatures below absolute zero.
-- [ ] Use `else if` and `else` to classify Celsius temperatures.
-- [ ] Use logical operators to check whether a menu choice is valid.
+- [ ] Display two conversion options.
+- [ ] Ask the user to select an option.
+- [ ] Ask for the measurement.
+- [ ] Use `switch` to perform the selected calculation.
+- [ ] Reject invalid menu choices.
+- [ ] Reject invalid numeric input.
+- [ ] Use `if` to reject negative lengths.
 
 ### Code
 
 ```c
-int choice;
-double result;
+#include <stdio.h>
 
-scanf("%d", &choice);
+int main(void) {
+    const double CM_PER_METER = 100.0;
 
-if (choice < 1 || choice > 3) {
-    return 1;
-}
+    int choice;
+    double value;
+    double result;
 
-switch (choice) {
-    case 1:
-        result = value * CM_PER_METER;
-        break;
+    printf("1. Meters to Centimeters\n");
+    printf("2. Centimeters to Meters\n");
+    printf("Choice: ");
 
-    case 2:
-        result = value / CM_PER_METER;
-        break;
-
-    case 3:
-        if (value < -273.15) {
-            return 1;
-        }
-
-        result = value + 273.15;
-        break;
-
-    default:
+    if (scanf("%d", &choice) != 1) {
+        printf("Invalid input.\n");
         return 1;
-}
+    }
 
-printf("%.2f\n", result);
+    if (choice != 1 && choice != 2) {
+        printf("Invalid choice.\n");
+        return 1;
+    }
+
+    printf("Enter value: ");
+
+    if (scanf("%lf", &value) != 1 || value < 0) {
+        printf("Invalid measurement.\n");
+        return 1;
+    }
+
+    switch (choice) {
+        case 1:
+            result = value * CM_PER_METER;
+            printf("%.2f m = %.2f cm\n", value, result);
+            break;
+
+        case 2:
+            result = value / CM_PER_METER;
+            printf("%.2f cm = %.2f m\n", value, result);
+            break;
+    }
+
+    return 0;
+}
 ```
 
 ### Explanation
 
-- `if` runs code when a condition is true.
-- `||` means OR.
-- `switch` selects a branch based on a value.
-- `case` identifies a possible value.
-- `break` prevents execution from continuing into the next case.
-- `default` handles unmatched values.
-- `<` and `>` compare numbers.
+- `int` stores the selected menu option.
+- `if` checks conditions.
+- `!=` checks whether two values are different.
+- `&&` means logical AND.
+- `||` means logical OR.
+- `switch` selects the appropriate conversion.
+- `case` defines an option.
+- `break` exits the `switch`.
+- `/` converts centimeters back to meters.
+
+### Example
+
+```text
+1. Meters to Centimeters
+2. Centimeters to Meters
+Choice: 2
+Enter value: 250
+250.00 cm = 2.50 m
+```
 
 ---
 
-## Task 6
+## Task 5
 
 **Chapter:** Loops
 
 ### Feature / Mission
 
-Keep the converter running until the user chooses to exit.
+Allow users to perform multiple conversions during one session.
 
-Users should be able to make several conversions without restarting the program.
+Add an exit option and keep the program running until the user chooses to close it.
 
 ### Assignments
 
-- [ ] Put the conversion menu inside a `do...while` loop.
+- [ ] Display the conversion menu repeatedly.
 - [ ] Add an option to exit.
-- [ ] Use `break` to stop the application.
-- [ ] Use `continue` to skip invalid choices.
-- [ ] Use `while` to retry invalid numeric input.
-- [ ] Use `for` to count completed conversions.
-- [ ] Display the number of completed conversions when exiting.
+- [ ] Use `do...while` to keep the application running.
+- [ ] Use `continue` to restart the menu after invalid input.
+- [ ] Use `break` to exit the application.
+- [ ] Keep a count of successful conversions.
+- [ ] Display the number of conversions when exiting.
 
 ### Code
 
 ```c
-int count = 0;
-int choice;
+#include <stdio.h>
 
-do {
-    printf("1. Convert\n2. Exit\n");
+int main(void) {
+    const double CM_PER_METER = 100.0;
 
-    while (scanf("%d", &choice) != 1) {
-        int ch;
+    int choice;
+    int count = 0;
+    double value;
+    double result;
 
-        while ((ch = getchar()) != '\n' && ch != EOF) {
+    do {
+        printf("\n1. Meters to Centimeters\n");
+        printf("2. Centimeters to Meters\n");
+        printf("3. Exit\n");
+        printf("Choice: ");
+
+        if (scanf("%d", &choice) != 1) {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF) {
+            }
+            printf("Invalid input.\n");
+            continue;
         }
 
-        printf("Enter a number: ");
-    }
+        if (choice == 3) {
+            break;
+        }
 
-    if (choice == 2) {
-        break;
-    }
+        if (choice != 1 && choice != 2) {
+            printf("Invalid choice.\n");
+            continue;
+        }
 
-    if (choice != 1) {
-        continue;
-    }
+        printf("Enter value: ");
 
-    count++;
+        if (scanf("%lf", &value) != 1) {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF) {
+            }
+            printf("Invalid input.\n");
+            continue;
+        }
 
-} while (choice != 2);
+        if (value < 0) {
+            printf("Measurement cannot be negative.\n");
+            continue;
+        }
 
-for (int i = 0; i < count; i++) {
-    /* Process each completed conversion. */
+        switch (choice) {
+            case 1:
+                result = value * CM_PER_METER;
+                printf("%.2f m = %.2f cm\n", value, result);
+                break;
+
+            case 2:
+                result = value / CM_PER_METER;
+                printf("%.2f cm = %.2f m\n", value, result);
+                break;
+        }
+
+        count++;
+
+    } while (1);
+
+    printf("Total conversions: %d\n", count);
+
+    return 0;
 }
 ```
 
 ### Explanation
 
-- `do...while` runs at least once.
-- `while` repeats while its condition is true.
-- `break` exits the nearest loop.
+- `do...while` repeats a block of code.
+- `while` can also repeat code while a condition remains true.
+- `break` exits a loop.
 - `continue` skips to the next iteration.
-- `for` is useful when processing a known number of items.
-- `++` increments a variable.
-- `!=` means not equal.
+- `++` increases a counter by one.
+- The input buffer is cleared after invalid text input.
+
+### Example
+
+```text
+1. Meters to Centimeters
+2. Centimeters to Meters
+3. Exit
+Choice: 1
+Enter value: 3
+3.00 m = 300.00 cm
+
+1. Meters to Centimeters
+2. Centimeters to Meters
+3. Exit
+Choice: 3
+Total conversions: 1
+```
 
 ---
 
-## Task 7
+## Task 6
 
 **Chapter:** Arrays & Strings
 
 ### Feature / Mission
 
-Save conversion history so users can look up earlier results.
+Save completed conversions so the user can view earlier measurements.
+
+Add a history menu and the ability to search for a saved conversion by its number.
 
 ### Assignments
 
-- [ ] Store up to 100 original values.
-- [ ] Store their converted results.
-- [ ] Store the name of each conversion.
-- [ ] Add new conversions at the next free array index.
-- [ ] Prevent the history from exceeding its capacity.
-- [ ] Use `strlen()` to check conversion names.
-- [ ] Use `strcpy()` to save conversion names.
-- [ ] Use `strcmp()` to search history.
-- [ ] Use a loop to process saved records.
+- [ ] Create arrays to store original and converted values.
+- [ ] Save the conversion type for each record.
+- [ ] Store up to 100 conversions.
+- [ ] Add an option to display all saved conversions.
+- [ ] Use a `for` loop to list history.
+- [ ] Add an option to retrieve a conversion by its history number.
+- [ ] Reject history indexes outside the saved range.
+- [ ] Display conversion names using a string array.
 
 ### Code
 
 ```c
-#include <string.h>
+#include <stdio.h>
 
-double originals[MAX_HISTORY];
-double results[MAX_HISTORY];
-char names[MAX_HISTORY][40];
+#define MAX_HISTORY 100
 
-int count = 0;
+int main(void) {
+    const double CM_PER_METER = 100.0;
 
-if (count < MAX_HISTORY && strlen("Meters to cm") < 40) {
-    originals[count] = value;
-    results[count] = result;
-    strcpy(names[count], "Meters to cm");
-    count++;
-}
+    double originals[MAX_HISTORY];
+    double results[MAX_HISTORY];
+    int types[MAX_HISTORY];
 
-for (int i = 0; i < count; i++) {
-    if (strcmp(names[i], "Meters to cm") == 0) {
-        printf("%.2f -> %.2f\n", originals[i], results[i]);
-    }
+    const char *names[] = {
+        "Meters to Centimeters",
+        "Centimeters to Meters"
+    };
+
+    int count = 0;
+    int choice;
+
+    do {
+        printf("\n1. Convert\n");
+        printf("2. View History\n");
+        printf("3. Find Conversion\n");
+        printf("4. Exit\n");
+        printf("Choice: ");
+
+        if (scanf("%d", &choice) != 1) {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF) {
+            }
+            continue;
+        }
+
+        if (choice == 1) {
+            if (count == MAX_HISTORY) {
+                printf("History is full.\n");
+                continue;
+            }
+
+            int type;
+            double value;
+            double result;
+
+            printf("1. Meters to Centimeters\n");
+            printf("2. Centimeters to Meters\n");
+            printf("Type: ");
+
+            if (scanf("%d", &type) != 1) {
+                int ch;
+                while ((ch = getchar()) != '\n' && ch != EOF) {
+                }
+                continue;
+            }
+
+            if (type != 1 && type != 2) {
+                continue;
+            }
+
+            printf("Value: ");
+
+            if (scanf("%lf", &value) != 1) {
+                int ch;
+                while ((ch = getchar()) != '\n' && ch != EOF) {
+                }
+                continue;
+            }
+
+            if (value < 0) {
+                continue;
+            }
+
+            if (type == 1) {
+                result = value * CM_PER_METER;
+            } else {
+                result = value / CM_PER_METER;
+            }
+
+            originals[count] = value;
+            results[count] = result;
+            types[count] = type;
+            count++;
+
+            printf("Result: %.2f\n", result);
+
+        } else if (choice == 2) {
+            for (int i = 0; i < count; i++) {
+                printf("%d. %s: %.2f -> %.2f\n",
+                       i + 1,
+                       names[types[i] - 1],
+                       originals[i],
+                       results[i]);
+            }
+
+        } else if (choice == 3) {
+            int number;
+
+            printf("History number: ");
+
+            if (scanf("%d", &number) != 1) {
+                int ch;
+                while ((ch = getchar()) != '\n' && ch != EOF) {
+                }
+                continue;
+            }
+
+            if (number < 1 || number > count) {
+                printf("Conversion not found.\n");
+                continue;
+            }
+
+            int i = number - 1;
+
+            printf("%s: %.2f -> %.2f\n",
+                   names[types[i] - 1],
+                   originals[i],
+                   results[i]);
+        }
+
+    } while (choice != 4);
+
+    return 0;
 }
 ```
 
 ### Explanation
 
 - Arrays store multiple values of the same type.
-- `[]` accesses elements by index.
-- Two-dimensional character arrays store multiple strings.
-- `strlen()` finds the length of a string.
-- `strcpy()` copies a string.
-- `strcmp()` compares two strings.
-- Array indexes start at zero.
-- Array bounds must be checked before adding new records.
+- `[]` accesses an array element.
+- Array indexes begin at zero.
+- `const char *names[]` stores a collection of strings.
+- `for` processes stored records.
+- `MAX_HISTORY` prevents writing beyond the allocated array.
+- A history number is converted to an array index by subtracting one.
 
 ---
 
-## Task 8
+## Task 7
 
 **Chapter:** Functions
 
 ### Feature / Mission
 
-Split the converter into reusable functions.
+Organize the converter into reusable functions without changing its functionality.
 
-The program should keep the same features, but the conversion calculations and history operations should no longer be mixed together inside `main()`.
+Separate calculations, menu display, input handling, and conversion history.
 
 ### Assignments
 
-- [ ] Create a function to convert a measurement.
-- [ ] Pass the measurement value and conversion type as parameters.
-- [ ] Return the converted value.
-- [ ] Create a function that displays the menu.
-- [ ] Create a function that adds a conversion to history.
-- [ ] Create a function that searches conversion history.
-- [ ] Use function prototypes.
-- [ ] Use local variables inside functions.
-- [ ] Call the functions from `main()`.
-- [ ] Make sure the complete program still works.
+- [ ] Create a function to display the menu.
+- [ ] Create a function to read an integer.
+- [ ] Create a function to read a measurement.
+- [ ] Create a function to calculate the conversion.
+- [ ] Create a function to display conversion history.
+- [ ] Create a function to find a saved conversion.
+- [ ] Use function parameters and return values.
+- [ ] Keep `main()` responsible for controlling the application.
 
 ### Code
 
 ```c
+#include <stdio.h>
+
+#define MAX_HISTORY 100
+#define CM_PER_METER 100.0
+
+void showMenu(void);
+int readInteger(void);
+int readMeasurement(double *value);
 double convert(double value, int type);
+void showHistory(
+    const double originals[],
+    const double results[],
+    const int types[],
+    int count
+);
+void findConversion(
+    const double originals[],
+    const double results[],
+    const int types[],
+    int count,
+    int number
+);
+
+const char *names[] = {
+    "Meters to Centimeters",
+    "Centimeters to Meters"
+};
+
+void showMenu(void) {
+    printf("\n1. Convert\n");
+    printf("2. View History\n");
+    printf("3. Find Conversion\n");
+    printf("4. Exit\n");
+}
+
+int readInteger(void) {
+    int value;
+
+    if (scanf("%d", &value) != 1) {
+        int ch;
+        while ((ch = getchar()) != '\n' && ch != EOF) {
+        }
+        return -1;
+    }
+
+    return value;
+}
+
+int readMeasurement(double *value) {
+    if (scanf("%lf", value) != 1) {
+        int ch;
+        while ((ch = getchar()) != '\n' && ch != EOF) {
+        }
+        return 0;
+    }
+
+    return *value >= 0;
+}
 
 double convert(double value, int type) {
-    switch (type) {
-        case 1:
-            return value * 100.0;
-
-        case 2:
-            return value / 100.0;
-
-        case 3:
-            return value + 273.15;
-
-        default:
-            return value;
+    if (type == 1) {
+        return value * CM_PER_METER;
     }
+
+    return value / CM_PER_METER;
+}
+
+void showHistory(
+    const double originals[],
+    const double results[],
+    const int types[],
+    int count
+) {
+    for (int i = 0; i < count; i++) {
+        printf("%d. %s: %.2f -> %.2f\n",
+               i + 1,
+               names[types[i] - 1],
+               originals[i],
+               results[i]);
+    }
+}
+
+void findConversion(
+    const double originals[],
+    const double results[],
+    const int types[],
+    int count,
+    int number
+) {
+    if (number < 1 || number > count) {
+        printf("Conversion not found.\n");
+        return;
+    }
+
+    int i = number - 1;
+
+    printf("%s: %.2f -> %.2f\n",
+           names[types[i] - 1],
+           originals[i],
+           results[i]);
+}
+
+int main(void) {
+    double originals[MAX_HISTORY];
+    double results[MAX_HISTORY];
+    int types[MAX_HISTORY];
+
+    int count = 0;
+    int choice;
+
+    do {
+        showMenu();
+
+        printf("Choice: ");
+        choice = readInteger();
+
+        switch (choice) {
+            case 1: {
+                if (count == MAX_HISTORY) {
+                    printf("History is full.\n");
+                    break;
+                }
+
+                printf("1. Meters to Centimeters\n");
+                printf("2. Centimeters to Meters\n");
+                printf("Type: ");
+
+                int type = readInteger();
+
+                if (type != 1 && type != 2) {
+                    printf("Invalid type.\n");
+                    break;
+                }
+
+                double value;
+
+                printf("Value: ");
+
+                if (!readMeasurement(&value)) {
+                    printf("Invalid measurement.\n");
+                    break;
+                }
+
+                double result = convert(value, type);
+
+                originals[count] = value;
+                results[count] = result;
+                types[count] = type;
+                count++;
+
+                printf("Result: %.2f\n", result);
+                break;
+            }
+
+            case 2:
+                showHistory(originals, results, types, count);
+                break;
+
+            case 3: {
+                printf("History number: ");
+                int number = readInteger();
+
+                findConversion(
+                    originals,
+                    results,
+                    types,
+                    count,
+                    number
+                );
+                break;
+            }
+
+            case 4:
+                break;
+
+            default:
+                printf("Invalid choice.\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
 }
 ```
 
 ### Explanation
 
-- A function groups reusable code.
-- Function prototypes tell the compiler about functions before their definitions.
+- Functions separate different responsibilities.
+- Function prototypes declare functions before use.
 - Parameters pass information into functions.
-- `return` sends a result back.
-- `void` is used when a function doesn't return a value.
-- Local variables are only accessible inside their scope.
-- Functions help separate different parts of the program.
+- `return` sends values back to the caller.
+- `void` indicates that a function returns no value.
+- Pointers allow functions to update variables provided by callers.
+- `const` parameters protect array data from accidental modification.
+- Local variables exist within their scope.
 
 ---
 
-## Final Application Checklist
+## Final Application
 
-- [ ] Convert meters to centimeters.
-- [ ] Convert centimeters to meters.
-- [ ] Convert Celsius to Kelvin.
-- [ ] Accept measurements from the user.
-- [ ] Let users choose a conversion.
-- [ ] Reject invalid input.
-- [ ] Repeat conversions until the user exits.
-- [ ] Save conversion history.
-- [ ] Search conversion history.
-- [ ] Use functions to organize the application.
+The completed program should:
+
+- [ ] Convert meters into centimeters.
+- [ ] Convert centimeters into meters.
+- [ ] Accept numeric user input.
+- [ ] Reject invalid measurements and menu options.
+- [ ] Allow repeated conversions.
+- [ ] Store up to 100 conversions.
+- [ ] Display conversion history.
+- [ ] Retrieve a conversion by its history number.
+- [ ] Organize logic into reusable functions.
 
 ## Repository Structure
 
@@ -458,17 +795,22 @@ c-000-unit-converter/
 └── main.c
 ```
 
+## Compile and Run
+
+```bash
+gcc main.c -o converter
+./converter
+```
+
 ## Next Project
 
 **C-001 — Student Management System**
-
-**Repository:** `c-001-student-management`
 
 New chapters:
 
 - Structures
 - Enumerations
 - Typedef
-- Data Modeling
-- Modular Programming
+- Pointers and Memory
 - Header Files
+- Modular Programming
